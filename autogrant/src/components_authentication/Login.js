@@ -9,7 +9,7 @@ const fields = loginFields;
 let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
-export default function Login() {
+export default function Login({ handleLogin, isLoggedIn }) {
   const [loginState, setLoginState] = useState(fieldsState);
 
   const handleChange = (e) => {
@@ -17,7 +17,6 @@ export default function Login() {
   };
 
   const handleSubmit = async (e) => {
-    console.log(loginState);
 
     e.preventDefault();
     await authenticateUser();
@@ -25,14 +24,17 @@ export default function Login() {
 
   //Handle Login API Integration here
   const authenticateUser = async () => {
-    console.log(loginState["email-address"])
     await axios
       .post("http://localhost:4000/signin", {
         email: loginState["email-address"],
         password: loginState.password,
       })
       .then(function (response) {
-        console.log(response);
+        const { email, roles, accessToken } = response.data;
+        if (roles) {
+          handleLogin(true, roles[0]);
+          isLoggedIn = true;
+        }
       })
       .catch(function (error) {
         console.log(error);
