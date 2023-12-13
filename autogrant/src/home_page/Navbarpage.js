@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assests/autograntlogo.png"
 import { Link } from "react-router-dom";
+import LoginPage from "../pages/Login";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -8,7 +9,7 @@ const Navbar = () => {
   }
   return (
   <>
-  <header className=" flex flex-row items-center h-14 ml-5 mr-14">
+  <header className=" flex flex-row items-center h-14 ml-5 mr-14 "> 
     <div className="logo flex-none w-44">
     <img src={logo} alt="AutoGrant logo"/>
     </div>

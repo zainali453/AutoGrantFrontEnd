@@ -8,6 +8,9 @@ import SignupPage from './pages/Signup';
 import LoginPage from './pages/Login';
 import NavBar from './pages/dashboard';
 import UserInfoForm from '../src/UserInformation/bioData'
+import AdminPanel from './pages/AdminPanel';
+import AdminNav from "../src/Adminpanel/Craling"
+import Login from './pages/Login';
 
 
 function App() {
@@ -16,8 +19,8 @@ function App() {
      <BrowserRouter>
         <Routes>
           <Route path="/dashboard" element={<NavBar/>}/>
-            <Route path="/" element={<UserInfoForm/>} />
-            <Route path="/signup" element={<SignupPage/>} />
+          <Route path="/" element={<Login/>} />
+          <Route path="/signup" element={<SignupPage/>} />
            
         </Routes>
         <Routes>

@@ -1,5 +1,5 @@
 import React from 'react';
-import photo from "../assests/scholarshipCap.jpg"
+import photo from "../assests/adminlogo.png"
 // Mock scholarship data
 const scholarships = [
   {
@@ -64,7 +64,7 @@ const ScholarshipCard = ({ title, organization, level, amount, deadline, logo })
     // Added hover effect for shadow and scale for a slight "lift" effect
     <div className="flex flex-col border border-gray-400 bg-white p-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:shadow-xl hover:-translate-y-1" style={{ minHeight: '200px' }}>
       <div className="mb-4">
-        <img className="w-40 h-20 mx-auto" src={photo} alt={`${organization} logo`} />
+        <img className="w-20 h-14 mx-auto" src={photo} alt={`${organization} logo`} />
       </div>
       <div className="flex-grow">
         <h3 className="font-bold text-lg mb-2 text-center">{title}</h3>

@@ -5,7 +5,7 @@ export default function Header({
     heading,
     paragraph,
     linkName,
-    linkUrl="#"
+    linkUrl,
 }){
     return(
         <div className="mt-0" >
