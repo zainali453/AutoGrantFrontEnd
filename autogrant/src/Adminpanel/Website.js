@@ -1,10 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const ScholarshipForm = () => {
+  // Dummy data for initial state
+  const initialEntries = [
+    {
+      name: "National Scholarship",
+      website: "https://nationalscholarship.example.com",
+      status: "Active",
+    },
+    {
+      name: "Community Award",
+      website: "https://communityaward.example.com",
+      status: "Pending",
+    },
+    {
+      name: "Excellence in Science",
+      website: "https://scienceaward.example.com",
+      status: "Completed",
+    },
+    {
+      name: "Artists Fund",
+      website: "https://artistsfund.example.com",
+      status: "Active",
+    },
+  ];
+
   const [formData, setFormData] = useState({
-    name: '',
-    website: '',
+    name: "",
+    website: "",
+    status: "Pending",
   });
+  const [entries, setEntries] = useState(initialEntries); // Initialize with dummy data
 
   const handleChange = (e) => {
     setFormData({
@@ -15,19 +41,22 @@ const ScholarshipForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Insert form submission logic here
+    setEntries([...entries, formData]); // Add the formData to the entries array
+    setFormData({ name: "", website: "", status: "Pending" }); // Reset form fields
   };
 
-  // Adjust the paddingLeft to the width of your sidebar if different from 64 (16rem)
   return (
-    <div className="container mx-auto pt-20 lg:pl-96 px-20"> 
-      <div className="bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4" style={{width:'500px', height: '500px' }}>
+    <div className="container mx-auto pt-20 lg:pl-64 px-20">
+      <div className="bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <form onSubmit={handleSubmit}>
           <h1 className="text-white font-bold mb-2 text-2xl">Add Website</h1>
-          
 
+          {/* Website Name Input */}
           <div className="mb-4">
-            <label className="block t text-sm font-bold mb-2 text-gray-400" htmlFor="name">
+            <label
+              className="block text-sm font-bold mb-2 text-gray-400"
+              htmlFor="name"
+            >
               Website Name
             </label>
             <input
@@ -35,16 +64,19 @@ const ScholarshipForm = () => {
               id="name"
               name="name"
               type="text"
-              placeholder="Your name"
+              placeholder="Enter website name"
               value={formData.name}
               onChange={handleChange}
             />
           </div>
 
-
+          {/* Website URL Input */}
           <div className="mb-6">
-            <label className="block text-gray-400 text-sm font-bold mb-2" htmlFor="website">
-              Scholarship's website URL
+            <label
+              className="block text-sm font-bold mb-2 text-gray-400"
+              htmlFor="website"
+            >
+              Website URL
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -57,6 +89,7 @@ const ScholarshipForm = () => {
             />
           </div>
 
+          {/* Add Button */}
           <div className="flex items-center justify-between">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -66,6 +99,34 @@ const ScholarshipForm = () => {
             </button>
           </div>
         </form>
+
+        {/* Entries Table in a white box */}
+        <div className="mt-6 bg-white shadow-md rounded px-8 pt-6 pb-8">
+          <table className="min-w-full mt-4">
+            <thead>
+              <tr>
+                <th className="border-b-2 border-gray-300 px-4 py-2 text-left">
+                  Website Name
+                </th>
+                <th className="border-b-2 border-gray-300 px-4 py-2 text-left">
+                  URL
+                </th>
+                <th className="border-b-2 border-gray-300 px-4 py-2 text-left">
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {entries.map((entry, index) => (
+                <tr key={index} className="border-b border-gray-300">
+                  <td className="px-4 py-2">{entry.name}</td>
+                  <td className="px-4 py-2">{entry.website}</td>
+                  <td className="px-4 py-2">{entry.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
