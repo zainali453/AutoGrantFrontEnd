@@ -1,17 +1,27 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import SignupPage from "./pages/Signup";
-import LoginPage from "./pages/Login";
 import NavBar from "./pages/dashboard";
-import UserInfoForm from "../src/UserInformation/bioData";
 import AdminPanel from "./pages/AdminPanel";
-import AdminNav from "../src/Adminpanel/Craling";
 import Login from "./pages/Login";
 import React, { useState } from "react";
+import AdminCrawl from "./pages/AdminCrawling";
+import axios from "axios";
+import CrawlingDataDashboard from "./Adminpanel/CrawlingWebsiteData";
+import Sidebar from "./Adminpanel/adminnav";
 
 function App() {
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    setIsLoggedIn(false);
+    setIsAdmin(false);
+    window.location.reload();
+  }
 
   const handleLogin = (Authenticated, role) => {
     if (Authenticated && role == "admin") {
@@ -23,11 +33,24 @@ function App() {
       setIsAdmin(false);
     }
   };
-
+  checkAccessToken(handleLogin);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="dashboard" />} />
+        <Route path="/" element={
+          <Navigate to="dashboard" />} />
+        <Route path="/crawlingwebsite" element={
+          isLoggedIn ? (
+            isAdmin ? (
+              <AdminCrawl />) : <Navigate to="/login" />) : <Navigate to="/login" />} />
+        <Route path="/crawlingdatawebsite" element={
+          isLoggedIn ? (
+            isAdmin ? (
+              <>
+                <Sidebar handleLogout={handleLogout} />
+                <CrawlingDataDashboard />
+              </>) : <Navigate to="/login" />) : <Navigate to="/login" />
+        } />
         <Route
           path="/signup"
           element={<SignupPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} />}
@@ -41,18 +64,57 @@ function App() {
           element={
             isLoggedIn ? (
               isAdmin ? (
-                <AdminPanel />
+                <AdminPanel handleLogout={handleLogout} />
               ) : (
                 <NavBar />
               )
             ) : (
-              <Navigate to="/login" />
+              <NavBar />
             )
           }
         />
+
       </Routes>
     </BrowserRouter>
   );
 }
+const checkAccessToken = async (handleLogin) => {
+  try {
+    const token = localStorage.getItem('accessToken');
+    const response = await axios.get('http://localhost:4000/checktoken', {
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (response.status === 200) {
+      const data = response.data;
+      if (data && data.role) {
+        handleLogin(true, data.role)
+        console.log("allowed")
+      }
+    } else {
+      console.error('Request failed with status:', response.status);
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+// function App() {
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+//         <Route path="/dashboard" element={<NavBar />} />
+//         <Route path="/" element={<Login />} />
+//         <Route path="/signup" element={<SignupPage />} />
+//         <Route path="/admin" element={<AdminPanel />} />
+//         <Route path="/scholarship-form" element={<ScholarshipForm />} />
+//         <Route path="/crawling-dashboard" element={<CrawlingDashboard />} />
+//       </Routes>
+//       <Routes></Routes>
+//     </BrowserRouter>
+//   );
+// }
 
 export default App;

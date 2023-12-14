@@ -4,7 +4,6 @@ import FormAction from "./FormAction";
 import FormExtra from "./FormExtra";
 import Input from "./Input";
 import axios from "axios";
-
 const fields = loginFields;
 let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
@@ -31,6 +30,9 @@ export default function Login({ handleLogin, isLoggedIn }) {
       })
       .then(function (response) {
         const { email, roles, accessToken } = response.data;
+        localStorage.setItem('accessToken', accessToken);
+        const value = localStorage.getItem('accessToken')
+        console.log(value)
         if (roles) {
           handleLogin(true, roles[0]);
           isLoggedIn = true;
