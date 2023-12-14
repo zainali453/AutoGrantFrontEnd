@@ -33,7 +33,7 @@ function App() {
       setIsAdmin(false);
     }
   };
-  checkAccessToken(handleLogin);
+  checkAccessToken(handleLogin, isLoggedIn);
   return (
     <BrowserRouter>
       <Routes>
@@ -66,10 +66,10 @@ function App() {
               isAdmin ? (
                 <AdminPanel handleLogout={handleLogout} />
               ) : (
-                <NavBar />
+                <NavBar handleLogout={handleLogout} />
               )
             ) : (
-              <NavBar />
+              <NavBar handleLogout={handleLogout} />
             )
           }
         />
@@ -78,24 +78,26 @@ function App() {
     </BrowserRouter>
   );
 }
-const checkAccessToken = async (handleLogin) => {
+const checkAccessToken = async (handleLogin, isLoggedIn) => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axios.get('http://localhost:4000/checktoken', {
-      headers: {
-        'x-access-token': token,
-        'Content-Type': 'application/json'
-      }
-    });
+    if (token && !isLoggedIn) {
+      const response = await axios.get('http://localhost:4000/checktoken', {
+        headers: {
+          'x-access-token': token,
+          'Content-Type': 'application/json'
+        }
+      });
 
-    if (response.status === 200) {
-      const data = response.data;
-      if (data && data.role) {
-        handleLogin(true, data.role)
-        console.log("allowed")
+      if (response.status === 200) {
+        const data = response.data;
+        if (data && data.role) {
+          handleLogin(true, data.role)
+          console.log("allowed")
+        }
+      } else {
+        console.error('Request failed with status:', response.status);
       }
-    } else {
-      console.error('Request failed with status:', response.status);
     }
   } catch (error) {
     console.error('Error fetching data:', error);

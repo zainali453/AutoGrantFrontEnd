@@ -24,7 +24,7 @@ const HeroSection = () => {
       style={{ backgroundImage: `url(${hero})` }}
     >
       <div className="absolute inset-0 flex flex-col justify-center items-center bg-gray-900 bg-opacity-50 px-4">
-        <div className="flex flex-col justify-center items-center max-w-md mx-auto">
+        <div className="flex flex-col justify-center items-center ">
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 text-center">
             Find Scholarships to Finance Your Study
           </h1>

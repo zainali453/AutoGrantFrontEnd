@@ -10,14 +10,14 @@ fields.forEach((field) => (fieldsState[field.id] = ""));
 
 export default function Login({ handleLogin, isLoggedIn }) {
   const [loginState, setLoginState] = useState(fieldsState);
-
+  const [loginError, setLoginError] = useState('');
   const handleChange = (e) => {
     setLoginState({ ...loginState, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
+    setLoginError('')
     await authenticateUser();
   };
 
@@ -40,6 +40,7 @@ export default function Login({ handleLogin, isLoggedIn }) {
       })
       .catch(function (error) {
         console.log(error);
+        setLoginError('Email or Password is incorrect');
       });
   };
   return (
@@ -60,7 +61,7 @@ export default function Login({ handleLogin, isLoggedIn }) {
           />
         ))}
       </div>
-
+      {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
       <FormExtra />
       <FormAction handleSubmit={handleSubmit} text="Login" />
     </form>

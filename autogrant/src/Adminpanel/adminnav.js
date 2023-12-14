@@ -62,7 +62,7 @@ const Sidebar = ({ handleLogout }) => {
         <div className="my-4 bg-gray-600 h-[1px]"></div>
 
         <Link onClick={handleLogout} className="no-underline">
-          <div className="p-2.5 mt-3 flex items-center rounded-md duration-300 cursor-pointer hover:gray-500 text-white text-lg">
+          <div className="p-2.5 mt-3 flex items-center rounded-md duration-300 cursor-pointer hover:bg-gray-500 text-white text-lg">
             <i className="bi bi-box-arrow-in-right"></i>
             <span className=" ml-4 text-gray-200 font-bold">Logout</span>
           </div>

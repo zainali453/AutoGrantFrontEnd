@@ -14,7 +14,7 @@ export default function Signup() {
     const [signupState, setSignupState] = useState(fieldsState);
     const [passwordError, setPasswordError] = useState('');
     const [passwordTouched, setPasswordTouched] = useState(false);
-
+    const [emailError, setEmailError] = useState('');
     const handleChange = (e) => {
         if (e.target.id === 'password' || e.target.id === 'confirm-password') {
             setPasswordError('');
@@ -36,9 +36,7 @@ export default function Signup() {
         }
     };
 
-    // Handle Signup API Integration here
     const createAccount = async () => {
-        // Password Validation
         try {
             await axios
                 .post("http://localhost:4000/signup", {
@@ -48,11 +46,13 @@ export default function Signup() {
                     navigate("/dashboard")
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    console.log(error.response.data.message)
+                    setEmailError(error.response.data.message);
                 });
             // Proceed with account creation...
         } catch (error) {
             console.log(error)
+
         }
 
     }
@@ -60,7 +60,6 @@ export default function Signup() {
     // Password Validation Function
     const validatePassword = (password) => {
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/;
-        console.log(regex.test(password))
         return regex.test(password);
     }
 
@@ -91,6 +90,9 @@ export default function Signup() {
                             )}
                             {field.id === 'confirm-password' && passwordError && (
                                 <p className="text-red-500 text-sm">{passwordError}</p>
+                            )}
+                            {field.id === 'email-address' && emailError && (
+                                <p className="text-red-500 text-sm">{emailError}</p>
                             )}
                         </div>
                     ))
