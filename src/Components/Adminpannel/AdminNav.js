@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
@@ -21,20 +23,20 @@ const Home = () => {
   const [open, setOpen] = useState(true);
 
   return (
-    <section >
+    <section>
       <div
         className={`bg-white min-h-screen ${
           open ? "w-72" : "w-16"
         } duration-500 text-black px-4`}
       >
-        <div className="py-3 flex justify-end">
+        <div className='py-3 flex justify-end'>
           <HiMenuAlt3
             size={26}
-            className="cursor-pointer"
+            className='cursor-pointer'
             onClick={() => setOpen(!open)}
           />
         </div>
-        <div className="mt-4 flex flex-col gap-4 relative">
+        <div className='mt-4 flex flex-col gap-4 relative'>
           {menus?.map((menu, i) => (
             <Link
               to={menu?.link}
@@ -65,7 +67,7 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <div className="m-3 text-xl text-gray-900 font-semibold">
+      <div className='m-3 text-xl text-gray-900 font-semibold'>
         REACT TAILWIND
       </div>
     </section>

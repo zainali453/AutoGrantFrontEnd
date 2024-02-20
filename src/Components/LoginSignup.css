@@ -1,9 +1,15 @@
+/** @format */
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  background: linear-gradient(to right, #000000, #FF4500); /* Gradient from black to orange-red */
+  background: linear-gradient(
+    to right,
+    #000000,
+    #ff4500
+  ); /* Gradient from black to orange-red */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -46,8 +52,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #FFA500; /* Or any orange color you prefer */
-  background-color: #FFA500; /* Or any orange color you prefer */
+  border: 1px solid #ffa500; /* Or any orange color you prefer */
+  background-color: #ffa500; /* Or any orange color you prefer */
   color: #ffffff; /* White text */
   font-size: 12px;
   font-weight: bold;
@@ -56,7 +62,6 @@ button {
   text-transform: uppercase;
   transition: transform 80ms ease-in;
 }
-
 
 button:active {
   transform: scale(0.95);
@@ -162,8 +167,12 @@ input {
 }
 
 .overlay {
-  background: -webkit-linear-gradient(to right, #FFA500, #FF4500);
-  background: linear-gradient(to right, #FFA500, #FF4500); /* Gradient from orange to red */
+  background: -webkit-linear-gradient(to right, #ffa500, #ff4500);
+  background: linear-gradient(
+    to right,
+    #ffa500,
+    #ff4500
+  ); /* Gradient from orange to red */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;

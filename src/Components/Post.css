@@ -1,3 +1,5 @@
+/** @format */
+
 .post {
   border: 1px solid var(--twitter-background);
   border-radius: 20px;
@@ -54,4 +56,3 @@
   /* border-radius: 20px; */
   margin-top: 10px; /* Add space between text and image */
 }
-
